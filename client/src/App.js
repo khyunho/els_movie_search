@@ -1,9 +1,9 @@
-function App() {
+function App () {
   return (
-    <div className="App">
-      hellooooo
+    <div>
+      aAaAAAAaA
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

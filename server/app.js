@@ -22,15 +22,15 @@ app.get('/', async (req, res) => {
         index: 'movie-data-nn',
         body: {
             query: {
-                match_all: {}
-                // match: {
-                //     "movie.name": "해리"
-                // }
+                // match_all: {}
+                match: {
+                    "movie.name": "해리"
+                }
             }
         }
     });
     res.send(result.hits.hits);
-    console.log(result.hits.hits);
+    console.log(result.hits.hits[0]._source.movie.name);
 })
 
 app.listen(port, () => {

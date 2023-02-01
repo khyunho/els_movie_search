@@ -6,7 +6,7 @@
     },
     "extends": [
         "plugin:react/recommended",
-        "airbnb"
+        "standard"
     ],
     "overrides": [
     ],
@@ -18,9 +18,6 @@
         "react"
     ],
     "rules": {
-        "react/jsx-filename-extension" : "off",
-        "import/no-extraneous-dependencies" : "off",
-        "react/jsx-boolean-value" : "off",
-        "react/react-in-jsx-scope" : "off"
+        "react/react-in-jsx-scope": "off"
     }
 }
