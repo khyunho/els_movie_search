@@ -21,6 +21,7 @@ app.get('/api/search', async (req, res) => {
     const result = await client.search({
         index: 'movie-data-nn',
         body: {
+            size: 10000,
             query: {
                 // match_all: {}
                 match: {

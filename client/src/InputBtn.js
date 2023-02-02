@@ -18,9 +18,17 @@ function InputBtn () {
     const result = await axios.get('/api/search',
       { params: { apple: text } }
     )
-    console.log(result)
-    setSearchResult(result.data._source.movie.name)
-    console.log(searchResult)
+    const Arr = result.data
+    const ArrMovieName = []
+    // console.log(Arr)
+    Arr.forEach((e, index) => {
+      // console.log('foreach 도는중 : ' + index + e._source.movie.name)
+      ArrMovieName[index] = e._source.movie.name
+    })
+    setSearchResult(ArrMovieName)
+    // console.log(searchResult)
+    // setSearchResult(result)
+    // console.log(searchResult._source)
   }
 
   return (
@@ -32,7 +40,9 @@ function InputBtn () {
           <b>검색 값: {text}</b>
         </div>
       <div id="result">
-        <b>결과 : {searchResult[0]}</b>
+        {searchResult.map((a, i) => (
+          <div key={i}> {a}</div>
+        ))}
       </div>
     </div>
   )
