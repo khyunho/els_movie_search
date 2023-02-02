@@ -15,7 +15,7 @@ const client = new elasticsearch.Client({
   //hosts: ["https://es_id:es_pass@localhost:9200"]
 });
 
-app.get('/', async (req, res) => {
+app.get('/api/search', async (req, res) => {
 
     // res.send("Hello World!");
     const result = await client.search({
@@ -24,13 +24,13 @@ app.get('/', async (req, res) => {
             query: {
                 // match_all: {}
                 match: {
-                    "movie.name": "해리"
+                    "movie.name": req.query.apple
                 }
             }
         }
     });
     res.send(result.hits.hits);
-    console.log(result.hits.hits[0]._source.movie.name);
+    console.log(result.hits.hits);
 })
 
 app.listen(port, () => {
