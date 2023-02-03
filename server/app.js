@@ -25,7 +25,7 @@ app.get('/api/search', async (req, res) => {
             query: {
                 // match_all: {}
                 match: {
-                    "movie.name": req.query.apple
+                    "movie.name.nori": req.query.apple
                 }
             }
         }
