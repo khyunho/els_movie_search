@@ -1,14 +1,19 @@
 const express = require('express');
+const fs = require('fs')
 const app = express();
 const port = 4000;
 
 const elasticsearch = require("elasticsearch");
 const client = new elasticsearch.Client({
-    hosts: ["http://elastic:changeme@localhost:9200"]
-    // node: 'http://127.0.0.1:1358',
+    hosts: ["https://elastic:aY6T+PXzt78pCuN8V8he@localhost:9200"]
+    // node: 'https://172:9200',
     // auth: {
     //     username: 'elastic',
-    //     password: 'changeme'
+    //     password: 'aY6T+PXzt78pCuN8V8he'
+    // },
+    // tls: {
+    //     ca: fs.readFileSync('/Users/gimhyeonho/http_ca.crt'),
+    //     rejectUnauthorized: false
     // }
     // hosts: ["http://localhost:9200"]
   //프로토콜이 https이고 elasticsearch에 id, password가 있다면
@@ -16,14 +21,12 @@ const client = new elasticsearch.Client({
 });
 
 app.get('/api/search', async (req, res) => {
-
     // res.send("Hello World!");
     const result = await client.search({
         index: 'movie-data-nn',
         body: {
             size: 10000,
             query: {
-                // match_all: {}
                 match: {
                     "movie.name.nori": req.query.apple
                 }

@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 function InputBtn () {
   const [text, setText] = useState('')
   const [searchResult, setSearchResult] = useState([])
-  // const [answer, setAnswer] = useState('')
+  // const [banana, setBanana] = useState([])
 
   const onChangeText = (e) => {
     setText(e.target.value)
@@ -20,13 +20,16 @@ function InputBtn () {
     )
     const Arr = result.data
     const ArrMovieName = []
+    // const ArrMovieDirector = []
     // console.log(Arr)
     Arr.forEach((e, index) => {
       // console.log('foreach 도는중 : ' + index + e._source.movie.name)
       ArrMovieName[index] = e._source.movie.name
+      // ArrMovieDirector[index] = e._source.movie.director
     })
     setSearchResult(ArrMovieName)
-    // console.log(searchResult)
+    // setBanana(ArrMovieDirector)
+    console.log(searchResult)
     // setSearchResult(result)
     // console.log(searchResult._source)
   }
