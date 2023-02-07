@@ -1,11 +1,11 @@
 const express = require('express');
-const fs = require('fs')
+// const fs = require('fs')
 const app = express();
 const port = 4000;
 
 const elasticsearch = require("elasticsearch");
 const client = new elasticsearch.Client({
-    hosts: ["https://elastic:aY6T+PXzt78pCuN8V8he@localhost:9200"]
+    hosts: ["https://elastic:q1w2e3@localhost:9200"]
     // node: 'https://172:9200',
     // auth: {
     //     username: 'elastic',
@@ -35,6 +35,26 @@ app.get('/api/search', async (req, res) => {
     });
     res.send(result.hits.hits);
     console.log(result.hits.hits);
+})
+
+app.get('/api/jamo', async (req, res) => {
+    // res.send("Hello World!");
+    const result = await client.search({
+        index: 'movie-data-nn',
+        body: {
+            "suggest": {
+                "name_suggest": {
+                    "text": req.query.apple,
+                    "term": {
+                        "field": "movie.name.jamo",
+                        "max_edits": 2
+                    }
+                }
+            }
+        }
+    });
+    res.send(result);
+    console.log(result);
 })
 
 app.listen(port, () => {
