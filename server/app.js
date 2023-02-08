@@ -57,6 +57,26 @@ app.get('/api/jamo', async (req, res) => {
     console.log(result);
 })
 
+app.get('/api/nameJamo', async (req, res) => {
+    // res.send("Hello World!");
+    const result = await client.search({
+        index: 'movie-data-nn',
+        body: {
+            "suggest": {
+                "name_suggest": {
+                "text": req.query.apple,
+                "term": {
+                    "field": "movie.name.name_jamo",
+                    "max_edits": 2
+                    }
+                }
+            }
+        }
+    });
+    res.send(result.suggest.name_suggest);
+    console.log(result.suggest.name_suggest);
+})
+
 app.listen(port, () => {
     console.log(port);
 });

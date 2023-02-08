@@ -6,6 +6,7 @@ function InputBtn () {
   const [searchResult, setSearchResult] = useState([])
   const [searchResultJamo, setSearchResultJamo] = useState('')
   const [jamoSuggest, setJamoSuggest] = useState('')
+  const [nameJamoSuggest, setNameJamoSuggest] = useState([])
 
   const onChangeText = (e) => {
     setText(e.target.value)
@@ -43,11 +44,28 @@ function InputBtn () {
     // d1.innerText = jamoSuggest
   }
 
+  const sendNameJamo = async () => {
+    const result = await axios.get('/api/nameJamo',
+      { params: { apple: text } }
+    )
+    console.log(result.data)
+    const Arr = result.data
+    const ArrMovieName = []
+    // const ArrMovieName = [result.data]
+    // console.log(ArrMovieName)
+    Arr.forEach((e, index) => {
+      ArrMovieName[index] = e.text
+    })
+    setNameJamoSuggest(ArrMovieName)
+    console.log(nameJamoSuggest)
+  }
+
   return (
       <div>
       <input onChange={onChangeText} value={text} />
       <button onClick={sendRequest}>전송</button>
       <button id="jamo" onClick={sendJamo}>분리</button>
+      <button id="nameJamo" onClick={sendNameJamo}>자동완성필터</button>
       <button onClick={onReset}>초기화</button>
       <div>
         <b>검색 값: {text}</b>
@@ -57,6 +75,11 @@ function InputBtn () {
       </div>
       <div id="suggest">
         <p>추천: {jamoSuggest}</p>
+      </div>
+      <div id="nameJamo">
+        {nameJamoSuggest.map((a, i) => (
+          <div key={i}> {a}</div>
+        ))}
       </div>
       <div id="result">
         <span id="s1">
