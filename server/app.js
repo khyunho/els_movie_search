@@ -27,8 +27,8 @@ app.get('/api/search', async (req, res) => {
         body: {
             size: 10000,
             query: {
-                match: {
-                    "movie.name.nori": req.query.apple
+                match_phrase: {
+                    "movie.name.name_jamo": req.query.apple
                 }
             }
         }

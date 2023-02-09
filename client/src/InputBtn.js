@@ -8,8 +8,24 @@ function InputBtn () {
   const [jamoSuggest, setJamoSuggest] = useState('')
   const [nameJamoSuggest, setNameJamoSuggest] = useState([])
 
-  const onChangeText = (e) => {
+  const onChangeText = async (e) => {
     setText(e.target.value)
+    const result = await axios.get('/api/nameJamo',
+      { params: { apple: e.target.value } }
+    )
+    const Arr = result.data
+    const ArrMovieName = []
+    const tmp = []
+    Arr.forEach((e, index) => {
+      ArrMovieName[index] = e.text
+    })
+    ArrMovieName.forEach((banana, i) => {
+      if (i !== 0 && banana.length === 1) {
+        tmp.push(i)
+      }
+    })
+    ArrMovieName.splice(tmp[0])
+    setNameJamoSuggest(ArrMovieName)
   }
 
   const onReset = () => {
@@ -51,13 +67,17 @@ function InputBtn () {
     console.log(result.data)
     const Arr = result.data
     const ArrMovieName = []
-    // const ArrMovieName = [result.data]
-    // console.log(ArrMovieName)
+    const tmp = []
     Arr.forEach((e, index) => {
       ArrMovieName[index] = e.text
     })
+    ArrMovieName.forEach((banana, i) => {
+      if (i !== 0 && banana.length === 1) {
+        tmp.push(i)
+      }
+    })
+    ArrMovieName.splice(tmp[0])
     setNameJamoSuggest(ArrMovieName)
-    console.log(nameJamoSuggest)
   }
 
   return (
